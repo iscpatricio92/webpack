@@ -13,7 +13,13 @@ module.exports = {
     assetModuleFilename: 'assets/images/[hash][ext][query]'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
+    alias: {
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@templates': path.resolve(__dirname, 'src/templates/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+      '@images': path.resolve(__dirname, 'src/assets/images/')
+    }
   },
   module: {
     rules: [
@@ -44,7 +50,7 @@ module.exports = {
             mimetype: "application/font-woff",
             name: "[name].[ext]",
             outputPath: "./assets/fonts/",
-            publicPath: "./assets/fonts/",
+            publicPath: "../../assets/fonts/",
             esModule: false,
           },
         }
@@ -58,7 +64,7 @@ module.exports = {
       filename: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename:'assets/css/[name].css'
+      filename: 'assets/css/[name].css'
     }),
     new CopyPlugin({
       patterns: [
@@ -69,9 +75,9 @@ module.exports = {
       ]
     })
   ],
-  optimization:{
-    minimize:true,
-    minimizer:[
+  optimization: {
+    minimize: true,
+    minimizer: [
       new CssMinimizerPlugin(),
       new TerserPlugin()
     ]
